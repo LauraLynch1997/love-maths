@@ -1,21 +1,21 @@
 // Wait for the dom to finish loading before running the game
 // Get the button elements and add event listeners to them
 
-document.addEventListener("DOMContentLoaded", function() {
-    let buttons = document.getElementsByTagName("button");
+    document.addEventListener("DOMContentLoaded", function() {
+        let buttons = document.getElementsByTagName("button");
+    
+        for (let button of buttons) {
+            button.addEventListener("click", function() {
+                if (this.getAttribute("data-type") === "submit") {
+                    checkAnswer();
+                } else {
+                    let gameType = this.getAttribute("data-type");
+                    runGame(gameType);
+                }
+            });
+        }
 
-    for (let button of buttons) {
-        button.addEventListener("click", function() {
-            if(this.getAttribute("data-type") === "submit") {
-                checkAnswer();
-            } else {
-                let gameType = this.getAttribute("data-type");
-                runGame(gameType);
-            }
-        });
-    }
-
-    this.documentElement.getElementById("answer-box").addEventListener("keydown", function(event) {
+    document.getElementById("answer-box").addEventListener("keydown", function(event) {
         if (event.key === "Enter") {
             checkAnswer();
         }
@@ -134,6 +134,8 @@ function displayMultiplyQuestion(operand1, operand2) {
         document.getElementById('operand2').textContent = operand2;
         document.getElementById('operator').textContent = "x";
 }
+
+
 
 function displayDivisionQuestion() {
     
